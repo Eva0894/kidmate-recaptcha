@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>reCAPTCHA Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 用 production 正式版 Site Key，动态加载 reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?render=你的生产环境SiteKey"></script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: sans-serif;
+        background: #f0f0f0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Verifying you're not a robot...</h2>
+    <div id="status">Please wait...</div>
+
+    <script>
+      const siteKey = '6LfeyR4rAAAAAH-WP7r7yetamKqG-H2jQ70GvY5S'; 
+
+      window.onload = function () {
+        if (!siteKey) {
+          document.getElementById('status').innerText = 'Missing site key!';
+          return;
+        }
+
+        grecaptcha.ready(function () {
+          grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
+            console.log('✅ Got token:', token);
+            document.getElementById('status').innerText = 'Verification success! Sending token...';
+
+            if (window.ReactNativeWebView) {
+              window.ReactNativeWebView.postMessage(token);
+            } else {
+              alert('Token: ' + token);
+            }
+          });
+        });
+      };
+    </script>
+  </body>
+</html>
