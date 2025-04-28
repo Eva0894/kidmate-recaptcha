@@ -7,9 +7,9 @@
     <style>
       body {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         height: 100vh;
         margin: 0;
       }
@@ -19,13 +19,12 @@
     <h2>Verify you're not a robot</h2>
     <div
       class="g-recaptcha"
-      data-sitekey="6LeIxAcTAAAAAJcZVRqyHhP_4uG8y7g0k4x3e"
-      data-callback="onSuccess"
+      data-sitekey="6LfeyR4rAAAAAH-WP7r7yetamKqG-H2jQ70GvY5S"
+      data-callback="onCaptchaSuccess"
     ></div>
 
     <script>
-      function onSuccess(token) {
-        // 将 token 发送到 React Native App
+      function onCaptchaSuccess(token) {
         if (window.ReactNativeWebView) {
           window.ReactNativeWebView.postMessage(token);
         } else {
